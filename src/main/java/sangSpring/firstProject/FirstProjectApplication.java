@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class FirstProjectApplication {
 
 	public static void main(String[] args) {
-		System.out.println("ㅇㅇㅁㄴㅇㅁㄴ");
 		SpringApplication.run(FirstProjectApplication.class, args);
 	}
 
