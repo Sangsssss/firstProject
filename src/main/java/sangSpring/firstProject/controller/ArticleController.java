@@ -13,6 +13,7 @@ import sangSpring.firstProject.repository.ArticleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j //로깅을 위한 어노테이션
@@ -40,7 +41,7 @@ public class ArticleController {
     Article saved = articleRepository.save(article);
 //    System.out.println(saved.toString());
     log.info(saved.toString());
-    return "redirect:/articles/" + saved.getId;
+    return "redirect:/articles/" + saved.getId();
     }
     @GetMapping("/articles/{id}")
     public String show(@PathVariable Long id, Model model) {
@@ -62,5 +63,32 @@ public class ArticleController {
         model.addAttribute("articleList", articleEntityList);
         //3: 뷰 페이지를 설정.
         return "articles/index";
+    }
+    @GetMapping("/articles/{id}/edit")
+    public String edit(@PathVariable Long id, Model model) {
+        //수정할 데이터를 가져오기
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+        model.addAttribute("article", articleEntity);
+        //뷰 페이지 설정
+
+    return "articles/edit";
+    }
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form) {
+        log.info(form.toString());
+        //1. DTO -> Entity
+        Article article = form.toEntity();
+        log.info(article.toString());
+        //2. Entity -> DB에 저장
+        //2-1. DB에서 기존 데이터를 가져온다.
+
+        Optional<Article> target = articleRepository.findById(article.getId());
+        //2-2. 기존 데이터에 값을 갱신한다.
+        if(target != null){
+            articleRepository.save(article);
+        }
+
+        //수정 결과 페이지를 Redirect
+        return "redirect:/articles/" + article.getId();
     }
 }

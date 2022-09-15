@@ -12,11 +12,11 @@
     {{#articleList}}
         <tr>
             <th scope="row">{{id}}</th>
-            <td>{{title}}</td>
+            <td><a href="/articles/{{id}}">{{title}}</a> </td>
             <td>{{content}}</td>
         </tr>
     {{/articleList}}
     </tbody>
 </table>
-<a href="/articles/new">작성하기</a>
+<a href="/articles/new" class="btn btn-primary">작성하기</a>
 {{>layouts/footer}}

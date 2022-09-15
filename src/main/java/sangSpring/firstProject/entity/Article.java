@@ -1,6 +1,7 @@
 package sangSpring.firstProject.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -13,10 +14,9 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Getter
 public class Article {
-    public Long getId() {
-        return id;
-    };
+
     @Id // 대표값을 지정! like 주민등록번호
     @GeneratedValue // 1,2,3,... 자동 생성 annotation!
     private Long id;
